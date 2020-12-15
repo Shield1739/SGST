@@ -1,19 +1,52 @@
 package ts.sst.models;
 
-public class User
-{
-	private final String correo;
-	private final String nombre;
-	private final String apellido;
-	private final String tipo;
+import java.io.Serializable;
 
-	public User(String correo, String nombre, String apellido, String tipo)
+public class User implements Serializable
+{
+	private String correo;
+	private String nombre;
+	private String apellido;
+	private int typeID;
+	private String tipo;
+
+	public User()
+	{
+
+	}
+
+	/**
+	 * Setters
+	 */
+
+	public void setCorreo(String correo)
 	{
 		this.correo = correo;
+	}
+
+	public void setNombre(String nombre)
+	{
 		this.nombre = nombre;
+	}
+
+	public void setApellido(String apellido)
+	{
 		this.apellido = apellido;
+	}
+
+	public void setTypeID(int typeID)
+	{
+		this.typeID = typeID;
+	}
+
+	public void setTipo(String tipo)
+	{
 		this.tipo = tipo;
 	}
+
+	/**
+	 * Getters
+	 */
 
 	public String getCorreo()
 	{
@@ -28,6 +61,11 @@ public class User
 	public String getApellido()
 	{
 		return apellido;
+	}
+
+	public int getTypeID()
+	{
+		return typeID;
 	}
 
 	public String getTipo()

@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../../../../../java/ts/sst/css/layoutView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.sst.controllers.main.LayoutController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../css/layoutView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.sst.controllers.main.LayoutController">
    <children>
       <BorderPane prefHeight="720.0" prefWidth="1280.0">
          <left>
@@ -22,7 +22,7 @@
                <children>
                   <Pane prefHeight="70.0" prefWidth="200.0">
                      <children>
-                        <Text layoutX="59.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SST">
+                        <Text fill="#f9f9f9" layoutX="42.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SGST">
                            <font>
                               <Font name="System Bold" size="48.0" />
                            </font>
@@ -33,33 +33,47 @@
                      <content>
                         <VBox prefHeight="620.0" prefWidth="200.0">
                            <children>
-                              <VBox prefHeight="620.0" prefWidth="100.0" styleClass="box-menus">
+                              <VBox fx:id="mainVbox" prefHeight="620.0" prefWidth="100.0" styleClass="box-menus">
                                  <children>
-                                    <ToggleButton fx:id="toggleButtonPrestamos" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleToggleButtonPrestamos" prefWidth="200.0" selected="true" text="Prestamos">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="groupMenus" />
-                                       </toggleGroup>
-                                       <styleClass>
-                                          <String fx:value="menus" />
-                                          <String fx:value="menu-group" />
-                                       </styleClass>
-                                    </ToggleButton>
-                                    <VBox fx:id="toggleVboxPrestamos" prefWidth="200.0" styleClass="box-submenus">
+                                    <VBox prefWidth="100.0">
                                        <children>
-                                          <ToggleButton fx:id="subTogglePrestamosEquipos" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleSubTogglePrestamosEquipos" styleClass="submenus" text="Prestamos de Equipos">
+                                          <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleMenuToggle" prefWidth="200.0" text="Prestamos">
+                                             <styleClass>
+                                                <String fx:value="menus" />
+                                                <String fx:value="menu-group" />
+                                             </styleClass>
                                              <toggleGroup>
-                                                <ToggleGroup fx:id="groupPrestamos" />
+                                                <ToggleGroup fx:id="menuGroup" />
                                              </toggleGroup>
                                           </ToggleButton>
-                                          <ToggleButton fx:id="subTogglePrestamosLabs" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleSubTogglePrestamosLabs" styleClass="submenus" text="Prestamos de Laboratorios" toggleGroup="$groupPrestamos" />
+                                          <VBox prefWidth="200.0" styleClass="box-submenus">
+                                             <children>
+                                                <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleTogglePrestamoEquipos" prefWidth="200.0" styleClass="submenus" text="Prestamos de Equipos">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="subMenuGroup" />
+                                                   </toggleGroup>
+                                                </ToggleButton>
+                                                <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleTogglePrestamoLabs" prefWidth="200.0" styleClass="submenus" text="Prestamos de Laboratorios" toggleGroup="$subMenuGroup" />
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </VBox>
-                                    <ToggleButton fx:id="toggleButtonInventario" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleToggleButtonInventario" prefWidth="200.0" selected="true" text="Inventario" toggleGroup="$groupMenus">
-                                       <styleClass>
-                                          <String fx:value="menus" />
-                                          <String fx:value="menu-group" />
-                                       </styleClass>
-                                    </ToggleButton>
+                                    <VBox prefWidth="100.0">
+                                       <children>
+                                          <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleMenuToggle" prefWidth="200.0" text="Inventario" toggleGroup="$menuGroup">
+                                             <styleClass>
+                                                <String fx:value="menus" />
+                                                <String fx:value="menu-group" />
+                                             </styleClass>
+                                          </ToggleButton>
+                                          <VBox prefWidth="100.0" styleClass="box-submenus">
+                                             <children>
+                                                <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefWidth="200.0" styleClass="submenus" text="Inventario" toggleGroup="$subMenuGroup" />
+                                                <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefWidth="200.0" styleClass="submenus" text="Descarte" toggleGroup="$subMenuGroup" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </VBox>
                            </children>

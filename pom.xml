@@ -29,6 +29,12 @@
 			<version>3.15.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<version>1.7</version>
+		</dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -40,6 +46,7 @@
                     <release>11</release>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -48,6 +55,7 @@
                     <mainClass>ts.sst.App</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>

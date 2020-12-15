@@ -4,13 +4,12 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ts.sst.controllers.BaseController;
-import ts.sst.database.DbUtilities;
+import ts.sst.database.DbUserUtilities;
 import ts.sst.models.User;
 
 public class LoginController extends BaseController
@@ -24,29 +23,27 @@ public class LoginController extends BaseController
 	@FXML
 	private Label errorLabel;
 
-	@FXML
-	private Button loginButton;
-
 	//MAYBE move out?
-	private DbUtilities dbUtilities = new DbUtilities();
+	private DbUserUtilities dbUserUtilities = new DbUserUtilities();
 
 	@FXML
 	private void handleLoginButton()
 	{
+
 		String correo = this.correoField.getText();
 		String pass = this.passField.getText();
 
 		if (correo.equals("") || pass.equals(""))
 		{
-			this.errorLabel.setText("ERROR! Campo Vacio");
+			this.errorLabel.setText("Campo Vacio");
 			return;
 		}
 
-		User user = this.dbUtilities.login(correo, pass);
+		User user = dbUserUtilities.login(correo, pass);
 
 		if (user == null)
 		{
-			this.errorLabel.setText("ERROR! Datos Incorrectos");
+			this.errorLabel.setText("Datos Incorrectos");
 			return;
 		}
 
@@ -63,12 +60,15 @@ public class LoginController extends BaseController
 			//OPTIMIZE better path
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ts/sst/views/main/layoutView.fxml"));
 			Scene scene = new Scene(loader.load());
-			Stage stage = (Stage) loginButton.getScene().getWindow();
+			//scene.getStylesheets().clear();
+			//scene.getStylesheets().add(getClass().getResource("/ts/sst/css/layoutView.css").toExternalForm());
+
+			Stage stage = (Stage) correoField.getScene().getWindow();
 			stage.setScene(scene);
 
 			//MAYBE move?
 			LayoutController controller = loader.getController();
-			controller.setUsuarioActivo(user);
+			controller.initLayout(user);
 		}
 		catch (IOException e)
 		{

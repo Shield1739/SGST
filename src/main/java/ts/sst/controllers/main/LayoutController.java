@@ -1,14 +1,11 @@
 package ts.sst.controllers.main;
 
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import ts.sst.controllers.BaseController;
 import ts.sst.models.User;
@@ -16,35 +13,34 @@ import ts.sst.models.User;
 public class LayoutController extends BaseController
 {
 	@FXML
-	private ToggleGroup groupMenus;
-	@FXML
-	private VBox toggleVboxPrestamos;
-	@FXML
-	private ToggleButton toggleButtonPrestamos;
-	@FXML
-	private ToggleButton subTogglePrestamosEquipos;
-	@FXML
-	private ToggleGroup groupPrestamos;
-	@FXML
-	private ToggleButton subTogglePrestamosLabs;
-	@FXML
-	private ToggleButton toggleButtonInventario;
+	private VBox mainVbox;
 	@FXML
 	private Label userCorreoLabel;
 	@FXML
 	private Label userTipoLabel;
 
-	private User usuarioActivo;
-
-	public void setUsuarioActivo(User usuarioActivo)
+	public void initLayout(User usuarioActivo)
 	{
-		//MAYBE STORE ACTIVE USER SOMEWHERE?
-		this.usuarioActivo = usuarioActivo;
+		//MAYBE Own method?
+		this.userCorreoLabel.setText(usuarioActivo.getCorreo());
+		this.userTipoLabel.setText(usuarioActivo.getTipo());
 
-		//this.usuarioCorreoLabel.setText(this.usuarioActivo.getCorreo());
-		//this.usuarioTipoLabel.setText(this.usuarioActivo.getTipo());
-
-		switchPane("main/panes/paneHomeView.fxml");
+		for (Node node : this.mainVbox.getChildrenUnmodifiable())
+		{
+			VBox submenu = (VBox)node;
+			for (Node subNode : submenu.getChildrenUnmodifiable())
+			{
+				if (subNode.getClass().equals(this.mainVbox.getClass()))
+				{
+					subNode.setVisible(false);
+					subNode.setManaged(false);
+				}
+				else
+				{
+					setStyle(subNode, "menu-group-inactivo");
+				}
+			}
+		}
 	}
 
 	private void switchPane(String Url)
@@ -72,67 +68,57 @@ public class LayoutController extends BaseController
 		switchPane("main/panes/inventario/paneInventarioView.fxml");
 	}
 
-	@FXML
-	void handleSubTogglePrestamosEquipos()
+	boolean toggleSubmenu(Node node)
 	{
-
-	}
-
-	@FXML
-	void handleSubTogglePrestamosLabs()
-	{
-
-	}
-
-	@FXML
-	void handleToggleButtonInventario()
-	{
-
-	}
-
-	@FXML
-	void handleToggleButtonPrestamos()
-	{
-
-	}
-
-	//Menu Operations
-
-	/**
-	 * Show/Hide Menus
-	 */
-	public void toggleSubmenus(ToggleButton menu, VBox box, ToggleButton... toggleSubmenus)
-	{
-		if (box.getChildren().isEmpty())
+		if (node.isVisible())
 		{
-			box.getChildren().addAll(toggleSubmenus);
-			//Animacao.fade(box);
-			style(menu, "menu-group");
+			node.setVisible(false);
+			node.setManaged(false);
+			return true;
 		}
 		else
 		{
-			deactivateSubmenus(box);
-			style(menu, "menu-group-inactivo");
+			node.setVisible(true);
+			node.setManaged(true);
+			return false;
 		}
 	}
 
 	/**
-	 * Deactivate Subemenus
+	 * Set Node Style
+	 * @param node node to style
+	 * @param style string name of style
 	 */
-	public void deactivateSubmenus(VBox... boxes)
+	public void setStyle(Node node, String style) {
+		node.getStyleClass().remove(2);
+		node.getStyleClass().add(style);
+	}
+
+	@FXML
+	void handleMenuToggle(ActionEvent event)
 	{
-		for (VBox box : boxes)
+		Node eventNode = (Node) event.getSource();
+		for (Node node : eventNode.getParent().getChildrenUnmodifiable())
 		{
-			box.getChildren().clear();
+			if (node.getClass().equals(this.mainVbox.getClass()))
+			{
+
+				String style = toggleSubmenu(node) ? "menu-group-inactivo" : "menu-group";
+				setStyle(eventNode, style);
+				return;
+			}
 		}
 	}
 
-	/**
-	 * Apply style to show/hide submenus
-	 */
-	public void style(Node no, String style)
+	@FXML
+	void handleTogglePrestamoEquipos()
 	{
-		no.getStyleClass().remove(3);
-		no.getStyleClass().add(style);
+
+	}
+
+	@FXML
+	void handleTogglePrestamoLabs()
+	{
+
 	}
 }

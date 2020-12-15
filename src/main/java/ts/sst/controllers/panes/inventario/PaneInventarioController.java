@@ -27,7 +27,7 @@ public class PaneInventarioController
 	public void initialize()
 	{
 		System.out.println("????????");
-		dbUtilities.getTodosTable();
+		//dbUtilities.getTodosTable();
 	}
 
 	@FXML
