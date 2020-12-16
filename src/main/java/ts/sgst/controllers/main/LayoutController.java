@@ -1,4 +1,4 @@
-package ts.sst.controllers.main;
+package ts.sgst.controllers.main;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -6,12 +6,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import ts.sst.controllers.BaseController;
-import ts.sst.models.User;
+import ts.sgst.controllers.BaseController;
+import ts.sgst.models.User;
 
 public class LayoutController extends BaseController
 {
+	@FXML
+	private AnchorPane subPane;
 	@FXML
 	private VBox mainVbox;
 	@FXML
@@ -25,6 +29,7 @@ public class LayoutController extends BaseController
 		this.userCorreoLabel.setText(usuarioActivo.getCorreo());
 		this.userTipoLabel.setText(usuarioActivo.getTipo());
 
+		//MAYBE consolidat with menuToggle?
 		for (Node node : this.mainVbox.getChildrenUnmodifiable())
 		{
 			VBox submenu = (VBox)node;
@@ -48,9 +53,8 @@ public class LayoutController extends BaseController
 		//MAYBE final constants urls?
 		try
 		{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ts/sst/views/" + Url));
-			loader.load();
-			//this.subPane.getChildren().setAll((AnchorPane) loader.load());
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ts/sgst/views/panes/" + Url));
+			this.subPane.getChildren().setAll((AnchorPane) loader.load());
 		}
 		catch (IOException e)
 		{
@@ -60,12 +64,7 @@ public class LayoutController extends BaseController
 
 	private void handleHome()
 	{
-		switchPane("main/panes/paneHomeView.fxml");
-	}
-
-	private void handleInventario()
-	{
-		switchPane("main/panes/inventario/paneInventarioView.fxml");
+		switchPane("paneHomeView.fxml");
 	}
 
 	boolean toggleSubmenu(Node node)
@@ -84,19 +83,19 @@ public class LayoutController extends BaseController
 		}
 	}
 
-	/**
-	 * Set Node Style
-	 * @param node node to style
-	 * @param style string name of style
-	 */
 	public void setStyle(Node node, String style) {
 		node.getStyleClass().remove(2);
 		node.getStyleClass().add(style);
 	}
 
+	/*
+			FXML Menu Toggles
+	 */
+
 	@FXML
 	void handleMenuToggle(ActionEvent event)
 	{
+		//MAYBE consolidate with initlayout
 		Node eventNode = (Node) event.getSource();
 		for (Node node : eventNode.getParent().getChildrenUnmodifiable())
 		{
@@ -111,14 +110,31 @@ public class LayoutController extends BaseController
 	}
 
 	@FXML
-	void handleTogglePrestamoEquipos()
+	void handlePaneSwitch(ActionEvent event)
 	{
+		ToggleButton button = (ToggleButton) event.getSource();
 
-	}
+		String pane = "paneHomeView.fxml";
 
-	@FXML
-	void handleTogglePrestamoLabs()
-	{
+		//TODO better switch than strings
+		switch (button.getText())
+		{
+			case "Prestamos de Equipos":
+				System.out.println("COMIN SOON");
+				break;
+			case "Prestamos de Laboratorios":
+				System.out.println("LABS");
+				break;
+			case "Ver Equipos":
+				pane = "inventario/paneInventarioVerView.fxml";
+				break;
+			case "Agregar Equipos":
+				pane = "inventario/paneInventarioAgregarView.fxml";
+				break;
+			default:
+				System.out.println("???");
+		}
 
+		switchPane(pane);
 	}
 }

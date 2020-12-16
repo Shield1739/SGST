@@ -35,7 +35,27 @@
 			<version>1.7</version>
 		</dependency>
 
-    </dependencies>
+		<dependency>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx-samples</artifactId>
+			<version>11.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
     <build>
         <plugins>
             <plugin>
@@ -52,7 +72,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>ts.sst.App</mainClass>
+                    <mainClass>ts.sgst.App</mainClass>
                 </configuration>
             </plugin>
 

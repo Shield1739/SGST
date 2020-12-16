@@ -1,4 +1,4 @@
-package ts.sst.database;
+package ts.sgst.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

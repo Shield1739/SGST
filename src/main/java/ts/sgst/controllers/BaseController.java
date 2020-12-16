@@ -1,4 +1,4 @@
-package ts.sst.controllers;
+package ts.sgst.controllers;
 
 public abstract class BaseController
 {

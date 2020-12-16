@@ -1,4 +1,4 @@
-package ts.sst;
+package ts.sgst;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

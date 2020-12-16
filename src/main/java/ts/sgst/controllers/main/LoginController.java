@@ -1,4 +1,4 @@
-package ts.sst.controllers.main;
+package ts.sgst.controllers.main;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -8,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ts.sst.controllers.BaseController;
-import ts.sst.database.DbUserUtilities;
-import ts.sst.models.User;
+import ts.sgst.controllers.BaseController;
+import ts.sgst.database.DbUserUtilities;
+import ts.sgst.models.User;
 
 public class LoginController extends BaseController
 {
@@ -29,7 +29,9 @@ public class LoginController extends BaseController
 	@FXML
 	private void handleLoginButton()
 	{
-
+		load(new User());
+		return;
+	/*
 		String correo = this.correoField.getText();
 		String pass = this.passField.getText();
 
@@ -51,6 +53,8 @@ public class LoginController extends BaseController
 		this.errorLabel.setText("");
 		//MAYBE 1 method?
 		load(user);
+
+	 */
 	}
 
 	private void load(User user)
@@ -58,7 +62,7 @@ public class LoginController extends BaseController
 		try
 		{
 			//OPTIMIZE better path
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ts/sst/views/main/layoutView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ts/sgst/views/main/layoutView.fxml"));
 			Scene scene = new Scene(loader.load());
 			//scene.getStylesheets().clear();
 			//scene.getStylesheets().add(getClass().getResource("/ts/sst/css/layoutView.css").toExternalForm());

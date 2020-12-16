@@ -1,4 +1,4 @@
-package ts.sst.database;
+package ts.sgst.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,8 +6,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
-import ts.sst.models.User;
+import ts.sgst.models.User;
 
 public class DbUserUtilities
 {
@@ -22,17 +21,13 @@ public class DbUserUtilities
 		try
 		{
 			//language=SQL
-			String query = "SELECT * FROM Usuario WHERE Correo=? AND Password=?";
+			String query = "SELECT " +
+				"u.Correo, u.Nombre, u.Apellido, ut.Nombre AS 'tipo' " +
+				"FROM Usuario u " +
+				"JOIN UserType ut ON ut.UsuarioTypeID = u.TypeID " +
+				"WHERE u.Correo=? AND u.Password=?";
 			user = runner.query(c, query, beanHandler, correo, password);
 
-			if (user != null)
-			{
-				ResultSetHandler<String> scalarHandler = new ScalarHandler<>();
-				//language=SQL
-				String query2 = "SELECT Nombre FROM UserType WHERE UsuarioTypeID=?";
-				String tipo = runner.query(c, query2, scalarHandler, user.getTypeID());
-				user.setTipo(tipo);
-			}
 		}
 		catch (SQLException throwables)
 		{
