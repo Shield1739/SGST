@@ -62,11 +62,15 @@ public class PaneInventarioVerController
 		field.setFocusTraversable(false);
 	}
 
+	//TODO Consolidate with agregar controller
 	private void addTextAndField(String text, String fieldText)
 	{
 		int y = (this.detailsGridPane.getChildren().size() / 2) + 1;
 
-		this.detailsGridPane.add(new Text(text), 1, y);
+		Text t = new Text(text);
+		t.setStyle("-fx-font: 14 system");
+		this.detailsGridPane.add(t, 1, y);
+
 		TextField field = new TextField();
 		field.setText(fieldText);
 		disableTextField(field);

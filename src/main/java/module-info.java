@@ -3,8 +3,8 @@ module ts.sst {
     requires javafx.fxml;
 	requires java.sql;
 	requires commons.dbutils;
+	requires org.controlsfx.controls;
 
-	opens ts.sgst to javafx.fxml;
 	opens ts.sgst.controllers to javafx.fxml;
 	opens ts.sgst.controllers.main to javafx.fxml;
 	opens ts.sgst.controllers.panes to javafx.fxml;

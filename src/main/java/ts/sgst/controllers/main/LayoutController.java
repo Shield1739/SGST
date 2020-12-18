@@ -112,6 +112,8 @@ public class LayoutController extends BaseController
 	@FXML
 	void handlePaneSwitch(ActionEvent event)
 	{
+		this.subPane.getChildren().clear();
+
 		ToggleButton button = (ToggleButton) event.getSource();
 
 		String pane = "paneHomeView.fxml";
@@ -128,7 +130,7 @@ public class LayoutController extends BaseController
 			case "Ver Equipos":
 				pane = "inventario/paneInventarioVerView.fxml";
 				break;
-			case "Agregar Equipos":
+			case "Agregar Equipo":
 				pane = "inventario/paneInventarioAgregarView.fxml";
 				break;
 			default:
