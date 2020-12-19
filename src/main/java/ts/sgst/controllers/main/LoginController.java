@@ -31,6 +31,7 @@ public class LoginController extends BaseController
 	{
 		load(new User());
 		return;
+		//TODO user auth works, removed for quicker testin
 	/*
 		String correo = this.correoField.getText();
 		String pass = this.passField.getText();

@@ -17,24 +17,18 @@ import ts.sgst.models.inventario.ItemAudiovisualGeneral;
 
 public class DbInventarioUtilities
 {
-	//MAYBE wrap the runners and connections
-	public List<ItemAudiovisual> getAllItems()
+	//Query runners
+	public <T extends ItemAudiovisual> List<T> runBeanListQuery(Class<T> T, String query)
 	{
+		//T inst = T.newInstance();
+		List<T> items = new ArrayList<>();
+		ResultSetHandler<List<T>> beanListHandler = new BeanListHandler<>(T);
+
 		QueryRunner runner = new QueryRunner();
 		Connection c = DbConnection.getConnection();
-		ResultSetHandler<List<ItemAudiovisual>> beanListHandler = new BeanListHandler<>(ItemAudiovisual.class);
-
-		List<ItemAudiovisual> items = new ArrayList<>();
 
 		try
 		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas " +
-				"FROM InventarioItem i " +
-				"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID";
-
 			items = runner.query(c, query, beanListHandler);
 		}
 		catch (SQLException throwables)
@@ -49,26 +43,18 @@ public class DbInventarioUtilities
 		return items;
 	}
 
-	public ItemAudiovisualLaptop getLaptopItem(int itemID)
+	public <T extends ItemAudiovisual> T runBeanQuery(Class<T> T, String query, int itemID)
 	{
+		//T inst = T.newInstance();
+		T item = null;
+		ResultSetHandler<T> beanHandler = new BeanHandler<>(T);
+
 		QueryRunner runner = new QueryRunner();
 		Connection c = DbConnection.getConnection();
-		ResultSetHandler<ItemAudiovisualLaptop> beanHandler = new BeanHandler<>(ItemAudiovisualLaptop.class);
-
-		ItemAudiovisualLaptop laptop = null;
 
 		try
 		{
-			//language=SQL
-			String query = "SELECT " +
-				//"i.ItemID, iec.Nombre AS 'estado', i.Notas, " +
-				"l.Marca, l.Modelo, l.NumeroProducto, l.OS " +
-				"FROM InventarioItem i " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Laptop l on l.InventarioItemID = i.ItemID " +
-				"WHERE i.ItemID=?";
-
-			laptop = runner.query(c, query, beanHandler, itemID);
+			item = runner.query(c, query, beanHandler, itemID);
 		}
 		catch (SQLException throwables)
 		{
@@ -79,238 +65,133 @@ public class DbInventarioUtilities
 			DbUtils.closeQuietly(c);
 		}
 
-		return laptop;
+		return item;
+	}
+
+	//Queries
+	//MAYBE Queries repeat, add item to all?
+	public List<ItemAudiovisual> getAllItems()
+	{
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas " +
+			"FROM InventarioItem i " +
+			"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID";
+
+		return runBeanListQuery(ItemAudiovisual.class, query);
+	}
+
+	public ItemAudiovisualLaptop getLaptopItem(int itemID)
+	{
+		//language=SQL
+		String query = "SELECT " +
+			//"i.ItemID, iec.Nombre AS 'estado', i.Notas, " +
+			"l.Marca, l.Modelo, l.NumeroProducto, l.OS " +
+			"FROM InventarioItem i " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Laptop l on l.InventarioItemID = i.ItemID " +
+			"WHERE i.ItemID=?";
+
+		return runBeanQuery(ItemAudiovisualLaptop.class, query, itemID);
 	}
 
 	public List<ItemAudiovisualLaptop> getAllLaptopItems()
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<List<ItemAudiovisualLaptop>> beanListHandler = new BeanListHandler<>(ItemAudiovisualLaptop.class);
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
+			"l.Marca, l.Modelo, l.NumeroProducto, l.OS " +
+			"FROM InventarioItem i " +
+			"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Laptop l on l.InventarioItemID = i.ItemID";
 
-		List<ItemAudiovisualLaptop> laptops = new ArrayList<>();
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
-				"l.Marca, l.Modelo, l.NumeroProducto, l.OS " +
-				"FROM InventarioItem i " +
-				"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Laptop l on l.InventarioItemID = i.ItemID";
-
-			laptops = runner.query(c, query, beanListHandler);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return laptops;
+		return runBeanListQuery(ItemAudiovisualLaptop.class, query);
 	}
 
 	public ItemAudiovisualRaspberry getRaspberryItem(int itemID)
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<ItemAudiovisualRaspberry> beanHandler = new BeanHandler<>(ItemAudiovisualRaspberry.class);
+		//language=SQL
+		String query = "SELECT " +
+			//"i.ItemID, iec.Nombre AS 'estado', i.Notas, " +
+			"r.Modelo, r.NumeroProducto " +
+			"FROM InventarioItem i " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Raspberry r on r.InventarioItemID = i.ItemID " +
+			"WHERE i.ItemID=?";
 
-		ItemAudiovisualRaspberry raspberry = null;
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				//"i.ItemID, iec.Nombre AS 'estado', i.Notas, " +
-				"r.Modelo, r.NumeroProducto " +
-				"FROM InventarioItem i " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Raspberry r on r.InventarioItemID = i.ItemID " +
-				"WHERE i.ItemID=?";
-
-			raspberry = runner.query(c, query, beanHandler, itemID);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return raspberry;
+		return runBeanQuery(ItemAudiovisualRaspberry.class, query, itemID);
 	}
 
 	public List<ItemAudiovisualRaspberry> getAllRaspberryItems()
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<List<ItemAudiovisualRaspberry>> beanListHandler = new BeanListHandler<>(ItemAudiovisualRaspberry.class);
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
+			"r.Modelo, r.NumeroProducto " +
+			"FROM InventarioItem i " +
+			"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Raspberry r on r.InventarioItemID = i.ItemID";
 
-		List<ItemAudiovisualRaspberry> raspberrys = new ArrayList<>();
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
-				"r.Modelo, r.NumeroProducto " +
-				"FROM InventarioItem i " +
-				"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Raspberry r on r.InventarioItemID = i.ItemID";
-
-			raspberrys = runner.query(c, query, beanListHandler);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return raspberrys;
+		return runBeanListQuery(ItemAudiovisualRaspberry.class, query);
 	}
 
 	public ItemAudiovisualProyector getProyectorItem(int itemID)
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<ItemAudiovisualProyector> beanHandler = new BeanHandler<>(ItemAudiovisualProyector.class);
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, iec.Nombre AS 'estado', i.Notas, " +
+			"p.Modelo, p.NumeroProducto " +
+			"FROM InventarioItem i " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Proyector p on p.InventarioItemID = i.ItemID " +
+			"WHERE i.ItemID=?";
 
-		ItemAudiovisualProyector proyector = null;
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, iec.Nombre AS 'estado', i.Notas, " +
-				"p.Modelo, p.NumeroProducto " +
-				"FROM InventarioItem i " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Proyector p on p.InventarioItemID = i.ItemID " +
-				"WHERE i.ItemID=?";
-
-			proyector = runner.query(c, query, beanHandler, itemID);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return proyector;
+		return runBeanQuery(ItemAudiovisualProyector.class, query, itemID);
 	}
 
 	public List<ItemAudiovisualProyector> getAllProyectorItems()
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<List<ItemAudiovisualProyector>> beanListHandler = new BeanListHandler<>(ItemAudiovisualProyector.class);
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
+			"p.Modelo, p.NumeroProducto " +
+			"FROM InventarioItem i " +
+			"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Proyector p on p.InventarioItemID = i.ItemID";
 
-		List<ItemAudiovisualProyector> proyectores = new ArrayList<>();
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
-				"p.Modelo, p.NumeroProducto " +
-				"FROM InventarioItem i " +
-				"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Proyector p on p.InventarioItemID = i.ItemID";
-
-			proyectores = runner.query(c, query, beanListHandler);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return proyectores;
+		return runBeanListQuery(ItemAudiovisualProyector.class, query);
 	}
 
 	public ItemAudiovisualGeneral getGeneralItem(int itemID)
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<ItemAudiovisualGeneral> beanHandler = new BeanHandler<>(ItemAudiovisualGeneral.class);
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
+			"a.Descripcion, a.Cantidad " +
+			"FROM InventarioItem i " +
+			"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Audiovisual a on a.InventarioItemID = i.ItemID " +
+			"WHERE i.ItemID=?";
 
-		ItemAudiovisualGeneral audiovisual = null;
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
-				"a.Descripcion, a.Cantidad " +
-				"FROM InventarioItem i " +
-				"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Audiovisual a on a.InventarioItemID = i.ItemID " +
-				"WHERE i.ItemID=?";
-
-			audiovisual = runner.query(c, query, beanHandler, itemID);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return audiovisual;
+		return runBeanQuery(ItemAudiovisualGeneral.class, query, itemID);
 	}
 
 	public List<ItemAudiovisualGeneral> getAllGeneralItems()
 	{
-		QueryRunner runner = new QueryRunner();
-		Connection c = DbConnection.getConnection();
-		ResultSetHandler<List<ItemAudiovisualGeneral>> beanListHandler = new BeanListHandler<>(ItemAudiovisualGeneral.class);
+		//language=SQL
+		String query = "SELECT " +
+			"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
+			"a.Descripcion, a.Cantidad " +
+			"FROM InventarioItem i " +
+			"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
+			"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
+			"JOIN Audiovisual a on a.InventarioItemID = i.ItemID";
 
-		List<ItemAudiovisualGeneral> audiovisuales = new ArrayList<>();
-
-		try
-		{
-			//language=SQL
-			String query = "SELECT " +
-				"i.ItemID, itc.Nombre AS 'tipo', iec.Nombre AS 'estado', i.Notas, " +
-				"a.Descripcion, a.Cantidad " +
-				"FROM InventarioItem i " +
-				"JOIN ItemTipoCategoria itc on itc.ItemTipoCategoriaID = i.TipoID " +
-				"LEFT JOIN ItemEstadoCategoria iec on iec.ItemEstadoCategoriaID = i.EstadoID " +
-				"JOIN Audiovisual a on a.InventarioItemID = i.ItemID";
-
-			audiovisuales = runner.query(c, query, beanListHandler);
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
-		}
-		finally
-		{
-			DbUtils.closeQuietly(c);
-		}
-
-		return audiovisuales;
+		return runBeanListQuery(ItemAudiovisualGeneral.class, query);
 	}
 }
