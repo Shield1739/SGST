@@ -18,7 +18,7 @@ public class LoginController extends BaseController
 	private TextField correoField;
 
 	@FXML
-	private PasswordField passField;
+	private PasswordField contraseñaField;
 
 	@FXML
 	private Label errorLabel;
@@ -29,20 +29,20 @@ public class LoginController extends BaseController
 	@FXML
 	private void handleLoginButton()
 	{
-		load(new User());
-		return;
-		//TODO user auth works, removed for quicker testin
-	/*
-		String correo = this.correoField.getText();
-		String pass = this.passField.getText();
+		//TODO remove after testing
+		this.correoField.setText("sa");
+		this.contraseñaField.setText("admin");
 
-		if (correo.equals("") || pass.equals(""))
+		String correo = this.correoField.getText();
+		String contraseña = this.contraseñaField.getText();
+
+		if (correo.equals("") || contraseña.equals(""))
 		{
 			this.errorLabel.setText("Campo Vacio");
 			return;
 		}
 
-		User user = dbUserUtilities.login(correo, pass);
+		User user = dbUserUtilities.login(correo, contraseña);
 
 		if (user == null)
 		{
@@ -52,10 +52,7 @@ public class LoginController extends BaseController
 
 		//IN
 		this.errorLabel.setText("");
-		//MAYBE 1 method?
 		load(user);
-
-	 */
 	}
 
 	private void load(User user)

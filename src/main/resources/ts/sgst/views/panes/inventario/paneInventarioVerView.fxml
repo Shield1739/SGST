@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -49,6 +50,8 @@
                                                   <columnConstraints>
                                                     <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                                                   </columnConstraints>
                                                   <rowConstraints>
                                                       <RowConstraints maxHeight="15.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
@@ -68,7 +71,7 @@
                                                          </GridPane.margin>
                                                       </Text>
                                                       <TextField fx:id="itemIDField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo" GridPane.rowIndex="2">
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categoria" GridPane.rowIndex="2">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -76,7 +79,7 @@
                                                             <Insets left="10.0" />
                                                          </GridPane.margin>
                                                       </Text>
-                                                      <TextField fx:id="itemTipoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <TextField fx:id="itemCategoriaField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" GridPane.rowIndex="3">
                                                          <font>
                                                             <Font size="14.0" />
@@ -94,30 +97,39 @@
                                                             <Insets left="10.0" top="5.0" />
                                                          </GridPane.margin>
                                                       </Text>
-                                                      <TextArea fx:id="itemNotasArea" maxHeight="135.0" maxWidth="200.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                                                      <TextArea fx:id="itemNotasArea" maxHeight="135.0" maxWidth="450.0" prefHeight="135.0" prefWidth="450.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>
                                                       </TextArea>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Marca" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets left="10.0" />
+                                                         </GridPane.margin>
+                                                      </Text>
+                                                      <TextField fx:id="itemMarcaField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets left="10.0" />
+                                                         </GridPane.margin>
+                                                      </Text>
+                                                      <TextField fx:id="itemModeloField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="N Producto" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets left="10.0" />
+                                                         </GridPane.margin>
+                                                      </Text>
+                                                      <TextField fx:id="itemNumeroProductoField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                                    </children>
-                                                </GridPane>
-                                                <GridPane fx:id="detailsGridPane" prefHeight="274.0" prefWidth="225.0">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                                                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints maxHeight="15.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
                                                 </GridPane>
                                              </children>
                                           </HBox>
@@ -143,15 +155,19 @@
                                     <ToggleGroup fx:id="equiposGroup" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton mnemonicParsing="false" onAction="#handleLaptops" text="Laptops" toggleGroup="$equiposGroup" />
-                              <ToggleButton mnemonicParsing="false" onAction="#handleRaspberrys" text="Raspberrys" toggleGroup="$equiposGroup" />
-                              <ToggleButton mnemonicParsing="false" onAction="#handleProyectores" text="Proyectores" toggleGroup="$equiposGroup" />
-                              <ToggleButton mnemonicParsing="false" onAction="#handleGeneral" text="Audiovisual" toggleGroup="$equiposGroup" />
                            </items>
                         </ToolBar>
                      </children>
                   </HBox>
-                  <TableView fx:id="inventarioTable" onMouseClicked="#handleTableSelect" prefHeight="310.0" prefWidth="200.0" />
+                  <TableView fx:id="inventarioTable" onMouseClicked="#handleTableSelect" prefHeight="310.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="categoriaColumn" prefWidth="75.0" text="Categoria" />
+                        <TableColumn fx:id="estadoColumn" prefWidth="75.0" text="Estado" />
+                        <TableColumn fx:id="marcaColumn" prefWidth="75.0" text="Marca" />
+                        <TableColumn fx:id="modeloColumn" prefWidth="75.0" text="Modelo" />
+                        <TableColumn fx:id="numeroProductoColumn" prefWidth="121.0" text="Numero Producto" />
+                     </columns></TableView>
                </children>
             </VBox>
          </center>

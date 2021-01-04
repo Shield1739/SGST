@@ -27,7 +27,7 @@ public class LayoutController extends BaseController
 	{
 		//MAYBE Own method?
 		this.userCorreoLabel.setText(usuarioActivo.getCorreo());
-		this.userTipoLabel.setText(usuarioActivo.getTipo());
+		this.userTipoLabel.setText(usuarioActivo.getRol());
 
 		//MAYBE consolidat with menuToggle?
 		for (Node node : this.mainVbox.getChildrenUnmodifiable())

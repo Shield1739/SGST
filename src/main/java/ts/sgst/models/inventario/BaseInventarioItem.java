@@ -59,4 +59,11 @@ public abstract class BaseInventarioItem
 	{
 		this.notas = notas;
 	}
+
+	/**
+	 * Abstracts
+	 */
+
+	public abstract String getCategoria();
+	public abstract String getSubCategoria();
 }

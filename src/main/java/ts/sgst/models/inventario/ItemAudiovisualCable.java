@@ -1,9 +1,15 @@
 package ts.sgst.models.inventario;
 
-public class ItemAudiovisualGeneral extends ItemAudiovisual
+public class ItemAudiovisualCable extends ItemAudiovisual
 {
 	private String descripcion;
 	private int cantidad;
+
+	@Override
+	public String getSubCategoria()
+	{
+		return "Cable";
+	}
 
 	/**
 	 * Getters

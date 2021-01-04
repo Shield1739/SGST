@@ -39,7 +39,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <PasswordField fx:id="passField" prefHeight="25.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="contraseñaField" prefHeight="25.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button layoutX="379.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleLoginButton" style="-fx-background-color: #f8c44f;" text="Log In">

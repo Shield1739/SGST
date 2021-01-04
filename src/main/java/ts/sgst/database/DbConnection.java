@@ -11,10 +11,10 @@ public class DbConnection
 		Connection conn;
 		try
 		{
-			// Class.forName("org.sqlite.JDBC");
-
-			String url = "jdbc:sqlite:db/sst.db";
-			conn = DriverManager.getConnection(url);
+			String url = "jdbc:h2:tcp://localhost/C:/Users/Luisf/IdeaProjects/ACADEMY/SST/db/SGST;DATABASE_TO_UPPER=false";
+			String user = "sa";
+			String ps = "admin";
+			conn = DriverManager.getConnection(url, user, ps);
 
 			return conn;
 		}

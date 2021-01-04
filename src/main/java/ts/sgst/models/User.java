@@ -1,13 +1,12 @@
 package ts.sgst.models;
 
-import java.io.Serializable;
-
-public class User implements Serializable
+public class User
 {
 	private String correo;
 	private String nombre;
 	private String apellido;
-	private String tipo;
+	private String rol;
+	private int nivelAcceso;
 
 	public User()
 	{
@@ -32,9 +31,14 @@ public class User implements Serializable
 		return apellido;
 	}
 
-	public String getTipo()
+	public String getRol()
 	{
-		return tipo;
+		return rol;
+	}
+
+	public int getNivelAcceso()
+	{
+		return nivelAcceso;
 	}
 
 	/**
@@ -56,9 +60,14 @@ public class User implements Serializable
 		this.apellido = apellido;
 	}
 
-	public void setTipo(String tipo)
+	public void setRol(String rol)
 	{
-		this.tipo = tipo;
+		this.rol = rol;
+	}
+
+	public void setNivelAcceso(int nivelAcceso)
+	{
+		this.nivelAcceso = nivelAcceso;
 	}
 
 }

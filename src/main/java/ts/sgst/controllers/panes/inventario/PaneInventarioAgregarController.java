@@ -3,14 +3,14 @@ package ts.sgst.controllers.panes.inventario;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
+import ts.sgst.controllers.BaseController;
 
-public class PaneInventarioAgregarController
+public class PaneInventarioAgregarController extends BaseController
 {
 	@FXML
 	private TextArea notasArea;

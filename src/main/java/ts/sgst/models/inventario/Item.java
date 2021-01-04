@@ -1,21 +1,38 @@
 package ts.sgst.models.inventario;
 
-public class ItemAudiovisualLaptop extends ItemAudiovisual
+public class Item
 {
+	private int ID;
+	private String categoria;
+	private String estado;
 	private String marca;
 	private String modelo;
 	private String numeroProducto;
-	private String os;
+	private String notas;
 
-	@Override
-	public String getSubCategoria()
+	public Item()
 	{
-		return "Laptop";
+
 	}
 
 	/**
 	 * Getters
 	 */
+
+	public int getID()
+	{
+		return ID;
+	}
+
+	public String getCategoria()
+	{
+		return categoria;
+	}
+
+	public String getEstado()
+	{
+		return estado;
+	}
 
 	public String getMarca()
 	{
@@ -32,14 +49,30 @@ public class ItemAudiovisualLaptop extends ItemAudiovisual
 		return numeroProducto;
 	}
 
-	public String getOs()
+	public String getNotas()
 	{
-		return os;
+		return notas;
 	}
 
 	/**
 	 * Setters
 	 */
+
+	public void setID(int ID)
+	{
+		this.ID = ID;
+	}
+
+	public void setCategoria(String categoria)
+	{
+		this.categoria = categoria;
+	}
+
+	public void setEstado(String estado)
+	{
+		this.estado = estado;
+	}
+
 	public void setMarca(String marca)
 	{
 		this.marca = marca;
@@ -55,8 +88,8 @@ public class ItemAudiovisualLaptop extends ItemAudiovisual
 		this.numeroProducto = numeroProducto;
 	}
 
-	public void setOs(String os)
+	public void setNotas(String notas)
 	{
-		this.os = os;
+		this.notas = notas;
 	}
 }

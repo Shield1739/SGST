@@ -5,6 +5,12 @@ public class ItemAudiovisualRaspberry extends ItemAudiovisual
 	private String modelo;
 	private String numeroProducto;
 
+	@Override
+	public String getSubCategoria()
+	{
+		return "Raspberry";
+	}
+
 	/**
 	 * Getters
 	 */

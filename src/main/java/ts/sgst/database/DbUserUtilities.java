@@ -10,7 +10,7 @@ import ts.sgst.models.User;
 
 public class DbUserUtilities
 {
-	public User login(String correo, String password)
+	public User login(String correo, String contraseña)
 	{
 		QueryRunner runner = new QueryRunner();
 		Connection c = DbConnection.getConnection();
@@ -21,12 +21,18 @@ public class DbUserUtilities
 		try
 		{
 			//language=SQL
-			String query = "SELECT " +
-				"u.Correo, u.Nombre, u.Apellido, ut.Nombre AS 'tipo' " +
-				"FROM Usuario u " +
-				"JOIN UserType ut ON ut.UsuarioTypeID = u.TypeID " +
-				"WHERE u.Correo=? AND u.Password=?";
-			user = runner.query(c, query, beanHandler, correo, password);
+			String query =
+     				"SELECT " +
+						"UsuarioID, " +
+						"UsuarioNombre AS \"Nombre\", " +
+						"UsuarioApellido AS \"Apellido\", " +
+						"UsuarioNivelAcceso AS \"NivelAcceso\", " +
+						"vlUsuarioRolValor AS \"Rol\" " +
+					"FROM dt_Usuario " +
+					"JOIN vt_UsuarioRol ON vlUsuarioRolID = UsuarioRolID " +
+					"WHERE UsuarioCorreo=? AND UsuarioToken=?";
+
+			user = runner.query(c, query, beanHandler, correo, contraseña);
 
 		}
 		catch (SQLException throwables)

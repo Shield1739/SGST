@@ -1,6 +1,6 @@
 package ts.sgst.models.inventario;
 
-public class ItemAudiovisualProyector extends ItemAudiovisual
+public class ItemAudiovisualBocina extends ItemAudiovisual
 {
 	private String marca;
 	private String modelo;
@@ -9,7 +9,7 @@ public class ItemAudiovisualProyector extends ItemAudiovisual
 	@Override
 	public String getSubCategoria()
 	{
-		return "Proyector";
+		return "Bocina";
 	}
 
 	/**
